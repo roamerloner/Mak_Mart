@@ -1,12 +1,17 @@
 /** @type {import('next').NextConfig} */
-const path = require("path");
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   sassOptions: {
-    includePaths: [path.join(__dirname, "styles")], 
+    includePaths: [path.join(__dirname, "styles")],
     prependData: `@import "./base.scss";`,
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
