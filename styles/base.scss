@@ -1,1 +1,31 @@
-$red-color: #ff0000a8;
+$black-color: #03070c;
+$grey-color: #f8f8f8;
+$sliteBlack-color: #111e2e73;
+
+$shadow-1: rgba(99, 99, 99, .2) 0px 2px 8px 0px;
+
+.btn_primary{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background: $black-color;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 2px;
+}
+
+.btn_outlined {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background: $grey-color;
+    color: $black-color;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 2px;
+}
