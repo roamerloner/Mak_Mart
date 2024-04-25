@@ -9,7 +9,7 @@ export default function Main() {
     <div className={styles.main__container}>
         <Link href='/'>
             
-            <img src='../../../mak_mart_logo.jpg' alt='' className={styles.logo}/>
+            <img src='../../../mak_mart_logo.png' alt='' className={styles.logo}/>
             
         </Link>
         <div className={styles.search}>
