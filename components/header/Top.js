@@ -6,7 +6,7 @@ import { RiAccountPinCircleLine, RiArrowDropDownFill } from "react-icons/ri";
 import Link from 'next/link';
 import UserMenu from './UserMenu';
 
-export default function Top() {
+export default function Top({ country }) {
   const [loggedIn, setLoggedIn] = useState(true);
   const[visible, setVisible] = useState(false);
   return (
@@ -15,8 +15,8 @@ export default function Top() {
              <div></div>
                 <ul className= {styles.top__list}>
                     <li className={styles.li}>
-                        <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Round_Flag_of_Bangladesh_-_centered.svg/240px-Round_Flag_of_Bangladesh_-_centered.svg.png' alt=''></img>
-                        <span>Bangladesh / BDT</span>
+                        <img src={country.flag} alt=''/>
+                        <span>{country.name} / BDT</span>
                     </li>                    
                     <li className={styles.li}>
                       <MdSecurity />
