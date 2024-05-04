@@ -4,9 +4,10 @@ import { Provider } from "react-redux";
 import store from "../store";
 import {PersistGate} from 'redux-persist/integration/react';
 import { persistStore } from "redux-persist";
+import { SessionProvider } from "next-auth/react";
 let persistor = persistStore(store); 
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps: { session, ...pageProps } }) {
   return(
     <>
       <Head>
@@ -15,12 +16,13 @@ export default function App({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon_MakMart.png"/>
       </Head>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Component {...pageProps}/> 
-        </PersistGate>
-
-      </Provider>
+      <SessionProvider session={session}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <Component {...pageProps}/> 
+          </PersistGate>
+        </Provider>
+      </SessionProvider>
     </>
   );
 }
