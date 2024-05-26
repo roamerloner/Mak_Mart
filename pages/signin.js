@@ -22,11 +22,14 @@ const initialvalues={
   email: "",
   password: "",
   conf_password: "",
+  success: "",
+  error: "",
 };
 export default function signin({providers}) {
+   const [loading, setLoading] = useState(false);
   const [user, setuser] = useState(initialvalues);
   const {login_email, login_password, name, email, password,
-              conf_password,}= user;
+              conf_password, success, error}= user;
   const handleChange=(e)=>{
     const {name, value} = e.target;
     setuser({...user,[name]:value});
@@ -57,6 +60,30 @@ export default function signin({providers}) {
       .required("Confirm your password.")
       .oneOf([Yup.ref("password")], "Passwords must match."),
   });
+  const signUpHandler = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.post("/api/auth/signup", {
+        name,
+        email,
+        password,
+      });
+      setUser({ ...user, error: "", success: data.message });
+      setLoading(false);
+      setTimeout(async () => {
+        let options = {
+          redirect: false,
+          email: email,
+          password: password,
+        };
+        const res = await signIn("credentials", options);
+        Router.push("/");
+      }, 2000);
+    } catch (error) {
+      setLoading(false);
+      setUser({ ...user, success: "", error: error.response.data.message });
+    }
+  };
   return (
     <>
       <Header />
@@ -124,6 +151,9 @@ export default function signin({providers}) {
               conf_password,
             }}
             validationSchema={registerValidation}
+             onSubmit={() => {
+                signUpHandler();
+              }}
             >
               {
                 (form)=>(
@@ -147,7 +177,10 @@ export default function signin({providers}) {
                 )
               }
             </Formik>
-            
+            <div>
+              {success && <span className={styles.success}>{success}</span>}
+            </div>
+            <div>{error && <span className={styles.error}>{error}</span>}</div>
            </div>
         </div>
       </div>

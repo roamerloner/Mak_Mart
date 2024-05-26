@@ -13,7 +13,7 @@ router.post(async (req, res) => {
         await db.connectDb();
         const {name, email, password}=req.body;
         if(!name || !email || !password){
-            return res.status(400).json({message: "Please fill in all fields."});
+            return res.status(400).json({message: "Please fill in all fields."}); 
         }
         if(!validateEmail(email)){
             return res.status(400).json({message: "Invalid Email."});
@@ -33,6 +33,10 @@ router.post(async (req, res) => {
             });
             const url = `${process.env.BASE_URL}/activate/${activation_token}`;
             sendEmail(email, url, "", "Activate your account.", activateEmailTemplate);
+            await db.disconnectDb();
+            res.json({
+      message: "Register success! Please activate your email to start.",
+    });
     } catch (error) {
         res.status(500).json({message: error.message});
     }
